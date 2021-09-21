@@ -31,9 +31,29 @@ export default class Application extends EventEmitter {
       const card = new Card({ ...pizza });
       card.render();
 
+      card.container.addEventListener('click', () => {
+        const currentNotification = this._createNotification(pizza);
+        document.querySelector('.notifications').appendChild(currentNotification.container);
+      });
       document.querySelector(".main").appendChild(card.container);
     });
 
     this.emit(Application.events.READY);
   }
+
+  _createNotification(pizza) {
+    const notification = new Notification();
+    notification.render(pizza);
+
+    if (pizza.type === 'hawaiian') {
+      notification.container.querySelector('div').classList += ' is-danger';
+    }
+
+    notification.container.querySelector('.delete').addEventListener('click', () => {
+      document.querySelector('.notifications').removeChild(notification.container);
+    });
+
+    return notification;
+  }
+
 }

@@ -1,3 +1,5 @@
+import {formatCurrency} from './utils.js';
+import classNames from 'classnames';
 export default class Notification {
   static get types() {
     return {
@@ -12,11 +14,11 @@ export default class Notification {
     this.container.classList.add("notification-container");
   }
 
-  render() {
+  render(pizza) {
     const template = `
-<div class="notification type-pepperoni">
+<div class="notification type-${pizza.type}">
   <button class="delete"></button>
-  🍕 <span class="type">pepperoni</span> (<span class="price">0,00</span>) has been added to your order.
+  🍕 <span class="type">${pizza.type}</span> (<span class="price">${formatCurrency(pizza.price)}</span>) has been added to your order.
 </div>
     `;
 
