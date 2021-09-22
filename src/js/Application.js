@@ -45,10 +45,6 @@ export default class Application extends EventEmitter {
     const notification = new Notification();
     notification.render(pizza);
 
-    if (pizza.type === 'hawaiian') {
-      notification.container.querySelector('div').classList += ' is-danger';
-    }
-
     notification.container.querySelector('.delete').addEventListener('click', () => {
       document.querySelector('.notifications').removeChild(notification.container);
     });
