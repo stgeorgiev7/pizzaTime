@@ -14,14 +14,30 @@ export default class Notification {
     this.container.classList.add("notification-container");
   }
 
-  render(pizza) {
-    const template = `
-<div class="notification type-${pizza.type}">
-  <button class="delete"></button>
-  🍕 <span class="type">${pizza.type}</span> (<span class="price">${formatCurrency(pizza.price)}</span>) has been added to your order.
-</div>
-    `;
+  render({type, price}) {
+    let template =''
+
+    if (type === 'hawaiian') {
+      template = `
+      <div class="notification type-${classNames('hawaiian', 'is-danger')}">
+        <button class="delete"></button>
+        🍕 <span class="type">${type}</span> (<span class="price">${formatCurrency(price)}</span>) has been added to your order.
+      </div>
+          `;
+    } else {
+      template = `
+      <div class="notification type-${type}">
+        <button class="delete"></button>
+        🍕 <span class="type">${type}</span> (<span class="price">${formatCurrency(price)}</span>) has been added to your order.
+      </div>
+          `;
+    }
+
 
     this.container.innerHTML = template;
+  }
+
+  empty() {
+    document.querySelector('.notifications').innerHTML = '';
   }
 }
